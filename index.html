@@ -215,7 +215,7 @@ input{
 
     <br>
 
-    <button onclick="nextScreen(5)">
+    <button onclick="sendToWhatsApp">
         Отправить Апельсинчику ❤️
     </button>
 </div>
@@ -287,6 +287,33 @@ function sendToWhatsApp() {
         selected.push(el.parentElement.innerText.trim());
     });
 
+   <script>
+function sendToWhatsApp() {
+
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    if (!date || !time) {
+        alert("Пожалуйста, выбери дату и время ❤️");
+        return;
+    }
+
+    const selected = [];
+
+    document
+        .querySelectorAll('.option input:checked')
+        .forEach(el => {
+            selected.push(
+                el.parentElement.innerText
+                .replace(/\s+/g, ' ')
+                .trim()
+            );
+        });
+
+    const places = selected.length
+        ? selected.join('\n')
+        : 'Ничего не выбрано';
+
     const message =
 `Привет, Апельсинчик ❤️
 
@@ -296,13 +323,15 @@ function sendToWhatsApp() {
 ⏰ Время: ${time}
 
 Куда хочу сходить:
-${selected.join('\n')}
-`;
+${places}`;
 
     const url =
-`https://wa.me/77763103143?text=${encodeURIComponent(message)}`;
+        "https://wa.me/77763103143?text=" +
+        encodeURIComponent(message);
 
-    window.open(url, "_blank");
+    window.location.href = url;
+}
+</script>
 }
 
 
