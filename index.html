@@ -215,9 +215,9 @@ input{
 
     <br>
 
-    <button onclick="sendToWhatsApp">
-        Отправить Апельсинчику ❤️
-    </button>
+    <button onclick="sendToTelegram()">
+    Отправить Апельсинчику ❤️
+</button>
 </div>
 
 <div class="screen" id="screen5">
@@ -269,7 +269,7 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 5000);
 }, 600);
 
-function sendToWhatsApp() {
+function sendToTelegram() {
 
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
@@ -302,10 +302,11 @@ function sendToWhatsApp() {
 ${places}`;
 
     const url =
-        "https://wa.me/77763103143?text=" +
+        "https://t.me/share/url?text=" +
         encodeURIComponent(message);
 
-    window.location.href = url;
+    window.open(url, "_blank");
+
 }
 
 </script>
