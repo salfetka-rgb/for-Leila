@@ -236,19 +236,16 @@ input{
 <script>
 
 function nextScreen(num){
-    document
-        .querySelectorAll('.screen')
+    document.querySelectorAll('.screen')
         .forEach(el => el.classList.remove('active'));
 
-    document
-        .getElementById('screen'+num)
+    document.getElementById('screen'+num)
         .classList.add('active');
 }
 
 const noBtn = document.getElementById('noBtn');
 
 function moveButton(){
-
     const x = Math.random() * (window.innerWidth - 120);
     const y = Math.random() * (window.innerHeight - 60);
 
@@ -260,34 +257,18 @@ noBtn.addEventListener('mouseenter', moveButton);
 noBtn.addEventListener('touchstart', moveButton);
 
 setInterval(() => {
-
     const heart = document.createElement('div');
-
     heart.classList.add('heart');
     heart.innerHTML = '❤';
 
-    heart.style.left = Math.random()*100 + 'vw';
-    heart.style.fontSize = (10 + Math.random()*20) + 'px';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (10 + Math.random() * 20) + 'px';
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    },5000);
+    setTimeout(() => heart.remove(), 5000);
+}, 600);
 
-},600);
-function sendToWhatsApp() {
-
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-
-    const selected = [];
-
-    document.querySelectorAll('.option input:checked').forEach(el => {
-        selected.push(el.parentElement.innerText.trim());
-    });
-
-   <script>
 function sendToWhatsApp() {
 
     const date = document.getElementById("date").value;
@@ -300,14 +281,9 @@ function sendToWhatsApp() {
 
     const selected = [];
 
-    document
-        .querySelectorAll('.option input:checked')
+    document.querySelectorAll('.option input:checked')
         .forEach(el => {
-            selected.push(
-                el.parentElement.innerText
-                .replace(/\s+/g, ' ')
-                .trim()
-            );
+            selected.push(el.parentElement.innerText.trim());
         });
 
     const places = selected.length
@@ -331,9 +307,6 @@ ${places}`;
 
     window.location.href = url;
 }
-</script>
-}
-
 
 </script>
 
