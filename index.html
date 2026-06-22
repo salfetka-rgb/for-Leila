@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для Лейлы ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#000;
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.screen{
+    width:90%;
+    max-width:600px;
+    text-align:center;
+    display:none;
+    animation:fade .6s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-size:2.2rem;
+    margin-bottom:20px;
+}
+
+p{
+    font-size:1.1rem;
+    line-height:1.6;
+    color:#d9d9d9;
+}
+
+button{
+    background:white;
+    color:black;
+    border:none;
+    padding:14px 28px;
+    border-radius:15px;
+    cursor:pointer;
+    margin:10px;
+    font-size:1rem;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.yes{
+    background:#fff;
+}
+
+.no{
+    position:absolute;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:15px 0;
+    border:none;
+    border-radius:12px;
+    background:#111;
+    color:white;
+}
+
+.options{
+    display:grid;
+    gap:12px;
+    margin-top:25px;
+    text-align:left;
+}
+
+.option{
+    background:#111;
+    padding:15px;
+    border-radius:15px;
+}
+
+.option input{
+    width:auto;
+    margin-right:10px;
+}
+
+.finish{
+    font-size:1.2rem;
+    line-height:2;
+}
+
+.heart{
+    position:fixed;
+    color:#ff4d6d;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="screen active" id="screen1">
+    <h1>Привет, Лейла ❤️</h1>
+    <p>
+        У меня есть для тебя один вопрос...
+        <br><br>
+        — Апельсинчик
+    </p>
+
+    <br><br>
+
+    <button onclick="nextScreen(2)">
+        Нажми сюда ✨
+    </button>
+</div>
+
+<div class="screen" id="screen2">
+    <h1>Пойдёшь со мной на свидание? ❤️</h1>
+
+    <button class="yes" onclick="nextScreen(3)">
+        Да 🥰
+    </button>
+
+    <button class="no" id="noBtn">
+        Нет 🙈
+    </button>
+</div>
+
+<div class="screen" id="screen3">
+    <h1>Урааа ❤️</h1>
+
+    <p>Тогда выбери день и время, когда ты свободна ✨</p>
+
+    <input type="date" id="date">
+    <input type="time" id="time">
+
+    <button onclick="nextScreen(4)">
+        Дальше →
+    </button>
+</div>
+
+<div class="screen" id="screen4">
+    <h1>Куда бы ты хотела сходить? ✨</h1>
+
+    <div class="options">
+
+        <label class="option">
+            <input type="checkbox">
+            🍽️ Ресторан
+        </label>
+
+        <label class="option">
+            <input type="checkbox">
+            ☕ Кофейня
+        </label>
+
+        <label class="option">
+            <input type="checkbox">
+            🎬 Кино
+        </label>
+
+        <label class="option">
+            <input type="checkbox">
+            🎮 Кинорум
+            <br>
+            <small>Уютно посмотреть фильм только вдвоём ❤️</small>
+        </label>
+
+        <label class="option">
+            <input type="checkbox">
+            🌃 Вечерняя прогулка
+        </label>
+
+        <label class="option">
+            <input type="checkbox">
+            ✨ Сюрприз от Апельсинчика
+        </label>
+
+    </div>
+
+    <br>
+
+    <button onclick="nextScreen(5)">
+        Отправить Апельсинчику ❤️
+    </button>
+</div>
+
+<div class="screen" id="screen5">
+    <h1>Спасибо, Лейла ❤️</h1>
+
+    <div class="finish">
+        Теперь Апельсинчик знает,
+        когда ты свободна и куда тебя пригласить.
+        <br><br>
+        С нетерпением жду нашего свидания ✨
+        <br><br>
+        ❤️
+    </div>
+</div>
+
+<script>
+
+function nextScreen(num){
+    document
+        .querySelectorAll('.screen')
+        .forEach(el => el.classList.remove('active'));
+
+    document
+        .getElementById('screen'+num)
+        .classList.add('active');
+}
+
+const noBtn = document.getElementById('noBtn');
+
+function moveButton(){
+
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+}
+
+noBtn.addEventListener('mouseenter', moveButton);
+noBtn.addEventListener('touchstart', moveButton);
+
+setInterval(() => {
+
+    const heart = document.createElement('div');
+
+    heart.classList.add('heart');
+    heart.innerHTML = '❤';
+
+    heart.style.left = Math.random()*100 + 'vw';
+    heart.style.fontSize = (10 + Math.random()*20) + 'px';
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    },5000);
+
+},600);
+function sendToWhatsApp() {
+
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    const selected = [];
+
+    document.querySelectorAll('.option input:checked').forEach(el => {
+        selected.push(el.parentElement.innerText.trim());
+    });
+
+    const message =
+`Привет, Апельсинчик ❤️
+
+Я согласна на свидание 😊
+
+📅 Дата: ${date}
+⏰ Время: ${time}
+
+Куда хочу сходить:
+${selected.join('\n')}
+`;
+
+    const url =
+`https://wa.me/77763103143?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+}
+
+
+</script>
+
+</body>
+</html>
