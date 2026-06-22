@@ -16,11 +16,12 @@
 body{
     background:#000;
     color:white;
-    min-height:100vh;
+    height:100vh;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
-    overflow:hidden;
+    transition:0.8s ease;
 }
 
 .screen{
@@ -28,22 +29,17 @@ body{
     max-width:600px;
     text-align:center;
     display:none;
-    animation:fade .6s ease;
+    opacity:0;
+    transform:translateY(20px);
+    transition:0.6s ease;
+    filter:blur(10px);
 }
 
 .screen.active{
     display:block;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
 }
 
 h1{
@@ -53,8 +49,8 @@ h1{
 
 p{
     font-size:1.1rem;
+    color:#ccc;
     line-height:1.6;
-    color:#d9d9d9;
 }
 
 button{
@@ -62,11 +58,11 @@ button{
     color:black;
     border:none;
     padding:14px 28px;
-    border-radius:15px;
+    border-radius:16px;
     cursor:pointer;
     margin:10px;
     font-size:1rem;
-    transition:.3s;
+    transition:0.3s;
 }
 
 button:hover{
@@ -74,7 +70,7 @@ button:hover{
 }
 
 .yes{
-    background:#fff;
+    background:white;
 }
 
 .no{
@@ -84,7 +80,7 @@ button:hover{
 input{
     width:100%;
     padding:14px;
-    margin:15px 0;
+    margin:10px 0;
     border:none;
     border-radius:12px;
     background:#111;
@@ -93,25 +89,15 @@ input{
 
 .options{
     display:grid;
-    gap:12px;
-    margin-top:25px;
+    gap:10px;
+    margin-top:20px;
     text-align:left;
 }
 
 .option{
     background:#111;
-    padding:15px;
-    border-radius:15px;
-}
-
-.option input{
-    width:auto;
-    margin-right:10px;
-}
-
-.finish{
-    font-size:1.2rem;
-    line-height:2;
+    padding:12px;
+    border-radius:12px;
 }
 
 .heart{
@@ -121,210 +107,146 @@ input{
 }
 
 @keyframes float{
-    from{
-        transform:translateY(100vh);
-        opacity:1;
-    }
-    to{
-        transform:translateY(-100px);
-        opacity:0;
-    }
+    from{transform:translateY(100vh);opacity:1;}
+    to{transform:translateY(-100px);opacity:0;}
+}
+
+/* typing */
+.typing::after{
+    content:"...";
+    animation:dots 1s infinite;
+}
+
+@keyframes dots{
+    0%{content:"";}
+    33%{content:".";}
+    66%{content:"..";}
+    100%{content:"...";}
 }
 </style>
 </head>
+
 <body>
 
 <div class="screen active" id="screen1">
     <h1>Привет, Лейла ❤️</h1>
-    <p>
-        У меня есть для тебя один вопрос...
-        <br><br>
-        — Апельсинчик
-    </p>
-
-    <br><br>
-
-    <button onclick="nextScreen(2)">
-        Нажми сюда ✨
-    </button>
+    <p>У меня есть для тебя один вопрос...</p>
+    <button onclick="next(2)">Нажми сюда ✨</button>
 </div>
 
 <div class="screen" id="screen2">
     <h1>Пойдёшь со мной на свидание? ❤️</h1>
 
-    <button class="yes" onclick="nextScreen(3)">
-        Да 🥰
-    </button>
-
-    <button class="no" id="noBtn">
-        Нет 🙈
-    </button>
+    <button onclick="next(3)">Да 🥰</button>
+    <button class="no" id="noBtn">Нет 🙈</button>
 </div>
 
 <div class="screen" id="screen3">
-    <h1>Урааа ❤️</h1>
+    <h1>Ура ❤️</h1>
 
-    <p>Тогда выбери день и время, когда ты свободна ✨</p>
+    <p>Выбери дату и время</p>
 
     <input type="date" id="date">
     <input type="time" id="time">
 
-    <button onclick="nextScreen(4)">
-        Дальше →
-    </button>
+    <button onclick="next(4)">Дальше →</button>
 </div>
 
 <div class="screen" id="screen4">
-    <h1>Куда бы ты хотела сходить? ✨</h1>
+    <h1>Куда пойдём? ✨</h1>
 
     <div class="options">
-
-        <label class="option">
-            <input type="checkbox">
-            🍽️ Ресторан
-        </label>
-
-        <label class="option">
-            <input type="checkbox">
-            ☕ Кофейня
-        </label>
-
-        <label class="option">
-            <input type="checkbox">
-            🎬 Кино
-        </label>
-
-        <label class="option">
-            <input type="checkbox">
-            🎮 Кинорум
-            <br>
-            <small>Уютно посмотреть фильм только вдвоём ❤️</small>
-        </label>
-
-        <label class="option">
-            <input type="checkbox">
-            🌃 Вечерняя прогулка
-        </label>
-
-        <label class="option">
-            <input type="checkbox">
-            ✨ Сюрприз от Апельсинчика
-        </label>
-
+        <label class="option"><input type="checkbox"> 🍽️ Ресторан</label>
+        <label class="option"><input type="checkbox"> ☕ Кофейня</label>
+        <label class="option"><input type="checkbox"> 🎬 Кино</label>
+        <label class="option"><input type="checkbox"> 🎮 Кинорум</label>
+        <label class="option"><input type="checkbox"> 🌃 Прогулка</label>
+        <label class="option"><input type="checkbox"> ✨ Сюрприз</label>
     </div>
 
-    <br>
-
-<button onclick="copyAndFinish()">
-    Отправить Апельсинчику ❤️
-</button>
+    <button onclick="send()">Отправить ❤️</button>
 </div>
 
 <div class="screen" id="screen5">
-    <h1>Спасибо, Лейла ❤️</h1>
-
-    <div class="finish">
-        Теперь Апельсинчик знает,
-        когда ты свободна и куда тебя пригласить.
-        <br><br>
-        С нетерпением жду нашего свидания ✨
-        <br><br>
-        ❤️
-    </div>
+    <h1 class="typing">Отправляем сообщение</h1>
 </div>
+
 <div class="screen" id="screen6">
     <h1>❤️ Готово</h1>
-
-    <p class="finish">
-        Твой ответ уже у Апельсинчика ✨<br><br>
-        Скоро увидимся 😊
-    </p>
+    <p>Твой ответ уже у Апельсинчика ✨</p>
 </div>
 
 <script>
 
-function nextScreen(num){
+function next(n){
     document.querySelectorAll('.screen')
-        .forEach(el => el.classList.remove('active'));
+        .forEach(s=>s.classList.remove('active'));
 
-    document.getElementById('screen'+num)
-        .classList.add('active');
+    const el=document.getElementById('screen'+n);
+    el.classList.add('active');
 }
 
-const noBtn = document.getElementById('noBtn');
+/* NO BUTTON */
+const noBtn=document.getElementById('noBtn');
 
-function moveButton(){
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 60);
+noBtn.addEventListener('mouseenter',()=>{
+    const x=Math.random()*200;
+    const y=Math.random()*200;
+    noBtn.style.transform=`translate(${x}px,${y}px)`;
+});
 
-    noBtn.style.left = x + 'px';
-    noBtn.style.top = y + 'px';
-}
+/* hearts */
+setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='heart';
+    h.innerHTML='❤';
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=(10+Math.random()*20)+'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+},500);
 
-noBtn.addEventListener('mouseenter', moveButton);
-noBtn.addEventListener('touchstart', moveButton);
+/* SEND */
+function send(){
 
-setInterval(() => {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.innerHTML = '❤';
+    const date=document.getElementById("date").value;
+    const time=document.getElementById("time").value;
 
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.fontSize = (10 + Math.random() * 20) + 'px';
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 5000);
-}, 600);
-
-function copyAndFinish() {
-
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-
-    if (!date || !time) {
+    if(!date||!time){
         alert("Выбери дату и время ❤️");
         return;
     }
 
-    const selected = [];
-
+    const places=[];
     document.querySelectorAll('.option input:checked')
-        .forEach(el => {
-            selected.push(el.parentElement.innerText.trim());
-        });
+        .forEach(e=>places.push(e.parentElement.innerText));
 
-    const places = selected.length
-        ? selected.join('\n')
-        : 'Ничего не выбрано';
-
-    const message =
+    const msg=
 `Привет, Апельсинчик ❤️
 
 Я согласна на свидание 😊
 
-📅 Дата: ${date}
-⏰ Время: ${time}
+📅 ${date}
+⏰ ${time}
 
-Куда хочу сходить:
-${places}`;
+Куда:
+${places.join('\n')}`;
 
-    navigator.clipboard.writeText(message);
+    next(5);
 
-    // плавный переход
-    document.body.style.transition = "0.8s";
-    document.body.style.opacity = "0";
+    setTimeout(()=>{
 
-    setTimeout(() => {
-        document.querySelectorAll('.screen')
-            .forEach(el => el.classList.remove('active'));
+        const url="https://wa.me/77763103143?text="+encodeURIComponent(msg);
 
-        document.getElementById('screen6')
-            .classList.add('active');
+        window.location.href=url;
 
-        document.body.style.opacity = "1";
-    }, 800);
+        setTimeout(()=>{
+            next(6);
+        },1200);
+
+    },1500);
 }
+
 </script>
 
 </body>
