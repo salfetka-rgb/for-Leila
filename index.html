@@ -215,7 +215,7 @@ input{
 
     <br>
 
-    <button onclick="sendToTelegram()">
+<button onclick="copyAndFinish()">
     Отправить Апельсинчику ❤️
 </button>
 </div>
@@ -231,6 +231,14 @@ input{
         <br><br>
         ❤️
     </div>
+</div>
+<div class="screen" id="screen6">
+    <h1>❤️ Готово</h1>
+
+    <p class="finish">
+        Твой ответ уже у Апельсинчика ✨<br><br>
+        Скоро увидимся 😊
+    </p>
 </div>
 
 <script>
@@ -269,13 +277,13 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 5000);
 }, 600);
 
-function sendToTelegram() {
+function copyAndFinish() {
 
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
 
     if (!date || !time) {
-        alert("Пожалуйста, выбери дату и время ❤️");
+        alert("Выбери дату и время ❤️");
         return;
     }
 
@@ -301,14 +309,22 @@ function sendToTelegram() {
 Куда хочу сходить:
 ${places}`;
 
-    const url =
-        "https://t.me/share/url?text=" +
-        encodeURIComponent(message);
+    navigator.clipboard.writeText(message);
 
-    window.open(url, "_blank");
+    // плавный переход
+    document.body.style.transition = "0.8s";
+    document.body.style.opacity = "0";
 
+    setTimeout(() => {
+        document.querySelectorAll('.screen')
+            .forEach(el => el.classList.remove('active'));
+
+        document.getElementById('screen6')
+            .classList.add('active');
+
+        document.body.style.opacity = "1";
+    }, 800);
 }
-
 </script>
 
 </body>
